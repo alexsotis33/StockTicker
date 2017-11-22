@@ -5,12 +5,16 @@
  */
 package stockticker;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel; 
+import javax.swing.Timer;
 
 /**
  *
@@ -22,9 +26,20 @@ public class StockTicker extends javax.swing.JFrame {
      * Creates new form StockTicker2
      */
     public StockTicker() {
+        
+        
         initComponents();
         initialize();
        
+        
+        Timer timer = new Timer(20, new ActionListener() {
+            
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                update();      
+            }
+        });
+        timer.start();
         
         }
     
@@ -34,19 +49,31 @@ public class StockTicker extends javax.swing.JFrame {
         
         String thePrice = stockPricer.getPrice(theTicker);
         jTxtDisplay.setText(jTxtDisplay.getText() + "   "+theTicker + ":  " + thePrice);
+        
+        
+        jLabScroll.setText(jTxtDisplay.getText());
     }
     
     private void initialize(){
+        
         jTxtDisplay.setEditable(false);
+        
+        // I'm pretty sure this is doing nothing
+        //jScrollPane2.setBounds(jScrollPane2.getX(), jScrollPane2.getY(), jScrollPane2.getWidth()*2, jScrollPane2.getHeight());
+    
     }
     
     private void update(){
         
+        jTxtDisplay.setLocation(jTxtDisplay.getX()-SCROLLSPEED, jTxtDisplay.getY());
+        if(jTxtDisplay.getX() < -jTxtDisplay.getWidth()){
+            jTxtDisplay.setLocation(jTxtDisplay.getWidth(),jTxtDisplay.getY());
+        }
         
-        
-        
-
-        
+        jLabScroll.setLocation(jLabScroll.getX()-SCROLLSPEED, jLabScroll.getY());
+        if(jLabScroll.getX() < -jLabScroll.getWidth()){
+            jLabScroll.setLocation(getContentPane().getWidth() ,jLabScroll.getY());
+        }
         
         
         
@@ -86,6 +113,7 @@ public class StockTicker extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTxtDisplay = new javax.swing.JTextPane();
         jLabUserPrompt = new javax.swing.JLabel();
+        jLabScroll = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +124,8 @@ public class StockTicker extends javax.swing.JFrame {
                 jUserTxtEntryActionPerformed(evt);
             }
         });
+
+        jScrollPane2.setViewportBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jTxtDisplay.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(jTxtDisplay);
@@ -108,24 +138,30 @@ public class StockTicker extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(215, Short.MAX_VALUE)
-                .addComponent(jLabUserPrompt)
-                .addGap(2, 2, 2)
-                .addComponent(jUserTxtEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(247, 247, 247))
             .addComponent(jScrollPane2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(217, 959, Short.MAX_VALUE)
+                .addComponent(jLabUserPrompt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jUserTxtEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(254, 254, 254))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(23, 23, 23)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(220, 220, 220)
+                .addGap(26, 26, 26)
+                .addComponent(jLabScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabUserPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jUserTxtEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -181,9 +217,11 @@ public class StockTicker extends javax.swing.JFrame {
 		System.out.println(message);
 	}// End print
 
+    private final int SCROLLSPEED = 3;
     private final StockPricer stockPricer = new StockPricer();
     private DefaultListModel listModel = new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabScroll;
     private javax.swing.JLabel jLabUserPrompt;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextPane jTxtDisplay;
