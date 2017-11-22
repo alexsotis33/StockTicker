@@ -37,7 +37,7 @@ public class StockTicker extends javax.swing.JFrame {
     }
     
     private void initialize(){
-        jList2.setModel(listModel);
+        jTxtDisplay.setEditable(false);
     }
     
     private void update(){
@@ -82,15 +82,12 @@ public class StockTicker extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jUserTxtEntry = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTxtDisplay = new javax.swing.JTextPane();
+        jLabUserPrompt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jScrollPane1.setViewportView(jList2);
 
         jUserTxtEntry.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jUserTxtEntry.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -103,18 +100,20 @@ public class StockTicker extends javax.swing.JFrame {
         jTxtDisplay.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(jTxtDisplay);
 
+        jLabUserPrompt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabUserPrompt.setText("Enter Stock Ticker:  ");
+        jLabUserPrompt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(392, Short.MAX_VALUE)
+                .addContainerGap(215, Short.MAX_VALUE)
+                .addComponent(jLabUserPrompt)
+                .addGap(2, 2, 2)
                 .addComponent(jUserTxtEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(233, 233, 233))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(247, 247, 247))
             .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
@@ -122,15 +121,11 @@ public class StockTicker extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1)
-                        .addGap(170, 170, 170))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(jUserTxtEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))))
+                .addGap(220, 220, 220)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabUserPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jUserTxtEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -186,11 +181,10 @@ public class StockTicker extends javax.swing.JFrame {
 		System.out.println(message);
 	}// End print
 
-    private StockPricer stockPricer = new StockPricer();
-    DefaultListModel listModel = new DefaultListModel();
+    private final StockPricer stockPricer = new StockPricer();
+    private DefaultListModel listModel = new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabUserPrompt;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextPane jTxtDisplay;
     private javax.swing.JTextField jUserTxtEntry;
