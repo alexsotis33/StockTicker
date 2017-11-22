@@ -18,6 +18,9 @@ public class StockPricer {
 	
 	
 	public String getPrice(String ticker) throws IOException{
+            // offline mode
+            //return "300.00";
+            
 		URL url = new URL("https://finance.google.com/finance?q=NASDAQ:"+ticker);
 		URLConnection urlConn = url.openConnection();
 		InputStreamReader inStream = new InputStreamReader(urlConn.getInputStream());
